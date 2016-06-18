@@ -1,7 +1,14 @@
 #include <stdio.h>
 
 int compile(FILE *in, FILE *out) {
-    /* Do the Magic */
+    FILE *temp = fopen("bshil.tmp", "w+");
+    int c;
+    while ((c = fgetc(in)) != EOF)
+        fputc(c, temp);
+    fclose(in);
+    fclose(out);
+    fclose(temp);
+    remove("bshil.tmp");
     return 0;
 }
 
