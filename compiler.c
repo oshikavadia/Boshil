@@ -1,14 +1,19 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int compile(FILE *in, FILE *out) {
-    FILE *temp = fopen("bshil.tmp", "w+");
-    int c;
-    while ((c = fgetc(in)) != EOF)
-        fputc(c, temp);
+    fseek(in, 0, SEEK_END);
+    int fsize = ftell(in);
+    rewind(in);
+    printf("Input File Size: %d\n", fsize);
+    char *buffer = malloc(fsize + 1);
+    int i = 0;
+    while (i < fsize)
+        buffer[i++] = fgetc(in);
+    buffer[i] = '\0';
+    printf("%s\n", buffer);
     fclose(in);
     fclose(out);
-    fclose(temp);
-    remove("bshil.tmp");
     return 0;
 }
 
